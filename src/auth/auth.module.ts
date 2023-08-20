@@ -13,15 +13,12 @@ const jwtConfig = config.get('jwt');
 @Module({
 
   imports:[
-    //typeOrm config for userRepository
     TypeOrmModule.forFeature([UserRepository]),
-    //jwt config
     JwtModule.register({
       secret: process.env.JWT_SECRET || jwtConfig.secret,
       signOptions: {
         expiresIn: jwtConfig.expiresIn,
       }}),
-    //passport config with jwt
     PassportModule.register({defaultStrategy:'jwt'})
   ],
 
@@ -29,7 +26,6 @@ const jwtConfig = config.get('jwt');
 
   providers: [AuthService,JwtStrategy ],
 
-  //this JwtStrategy belongs to authModule as its provider but for importing or accessing anywhere outside of auth module such as task module( for AuthGuard()), we give as exports
   exports:[ JwtStrategy,PassportModule ],
 })
 export class AuthModule {}

@@ -18,7 +18,6 @@ export class TaskStatusValidationPipe implements PipeTransform{
        return value
   }
 
-  //private function to check whether the status is included in allowedStatuses array
   private isStatusValid(status:any){
     const index= this.allowedStatuses.indexOf(status)
     return  index !==-1

@@ -11,12 +11,11 @@ import { Logger } from '@nestjs/common';
 @EntityRepository(TaskEntity)
 export class TaskRepository extends Repository <TaskEntity> {
  
-  //get all tasks with or without filter. this is a custom method or function we are writing instead of findOne ,remove,delete, etc
+  //get all tasks 
   async getTasks(filterDto: GetTasksFilterDto, user:UserEntity): Promise<TaskEntity[]> {
    const {status,search} = filterDto
-   const query = this.createQueryBuilder('task') //alias for our table 'task_entity' in db , we can use any alias
+   const query = this.createQueryBuilder('task') 
 
-   //to fetch the tasks as per the user
    query.where('task.userId= :userId',{userId: user.id})
 
    //status and search filter
@@ -30,7 +29,7 @@ export class TaskRepository extends Repository <TaskEntity> {
    return allTasks
   }
 
-  //create new task, this is the exact same thing from service.just took it from there and pasted here and called this function inside server
+  //create new task
   async createNewTask(createTaskDto:CreateTaskDto ,user:UserEntity ) : Promise<TaskEntity> {
     const {title,description} = createTaskDto
     
@@ -42,14 +41,12 @@ export class TaskRepository extends Repository <TaskEntity> {
     newTask.user= user
     
     await newTask.save()
-    delete newTask.user //newTask.user is already saved in the db. this deleting doesnt affect that. this only deletes this in the newTask returned from this function.
+    delete newTask.user 
     
     //logger
     const logger = new Logger('createNewTask')
     logger.verbose(`new task created`)
-    //console.log('new task created')
-    //logger.verbose(`${JSON.stringify(newTask)} is the new task created`)
-
+    
 
     
     return newTask 

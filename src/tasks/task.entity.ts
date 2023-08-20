@@ -4,8 +4,8 @@ import { UserEntity } from 'src/auth/user.entity'
 
 @Entity()
 export class TaskEntity extends BaseEntity{
- @PrimaryGeneratedColumn() //primary key, auto generated
-  id:number // in entity , id is defined as number 
+ @PrimaryGeneratedColumn() 
+  id:number 
 
   @Column() 
   title:string

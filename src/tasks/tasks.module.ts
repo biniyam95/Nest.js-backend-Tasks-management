@@ -8,7 +8,7 @@ import { AuthModule } from 'src/auth/auth.module';
 @Module({
   imports: [ 
     TypeOrmModule.forFeature([TaskRepository]),
-    AuthModule, //anything that belongs to AuthModule is now part of TaskModule too because of this import
+    AuthModule, 
  ],
   controllers: [TasksController],
   providers: [TasksService]

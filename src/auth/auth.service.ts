@@ -26,20 +26,17 @@ export class AuthService {
   async login(authCredentialsDto:AuthCredentialsDto):Promise<{accessToken:string}>{
    const username = await this.userRepository.validateUserPassword(authCredentialsDto)
    
-     // console.log(username,'username of the user trying to login ');
    if(!username){
     throw new UnauthorizedException('Invalid credentials')
    }
 
-   //after user credential verification is successful, lets store it in a payload and push that inside an AccessToken
    const payload:JwtPayload= {username}
    const accessToken=await this.jwtService.sign(payload)
 
-   //console.log('jwt token generated')
    this.logger.debug('jwt token generated')
    
 
-   return {accessToken} //token that returns in postman
+   return {accessToken} 
   }
 
 
